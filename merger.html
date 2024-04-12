@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Merger HTML, CSS & JS avec Prévisualisation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        textarea, iframe, button {
+            width: 100%;
+            box-sizing: border-box; /* Ne pas déborder du conteneur parent */
+        }
+
+        textarea {
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            background-color: #ffffff;
+            font-family: monospace; /* Style de font pour le code */
+            font-size: 14px;
+        }
+
+        iframe {
+            height: 300px;
+            border-radius: 5px;
+            border: none;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        #sourceCode {
+            height: 200px; /* Plus d'espace pour le code source */
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="htmlCode" placeholder="Coller le code HTML ici"></textarea>
+    <textarea id="cssCode" placeholder="Coller le code CSS ici"></textarea>
+    <textarea id="jsCode" placeholder="Coller le code JavaScript ici"></textarea>
+    <button onclick="mergeCode()">Merge et Prévisualiser</button>
+    <h3>Prévisualisation :</h3>
+    <iframe id="preview"></iframe>
+    <h3>Code Source :</h3>
+    <textarea id="sourceCode" readonly></textarea>
+
+    <script>
+        function mergeCode() {
+            const htmlCode = document.getElementById('htmlCode').value;
+            const cssCode = "<style>\n" + document.getElementById('cssCode').value + "\n</style>";
+            const jsCode = "<script>\n" + document.getElementById('jsCode').value + "\n<\/script>";
+            const totalCode = htmlCode + cssCode + jsCode;
+            
+            // Affiche dans l'iframe
+            const iframe = document.getElementById('preview');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(totalCode);
+            iframeDoc.close();
+            
+            // Met à jour le code source dans la textarea
+            document.getElementById('sourceCode').value = totalCode;
+        }
+    </script>
+</body>
+</html>

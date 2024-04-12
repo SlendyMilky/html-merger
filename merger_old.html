@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML, CSS, & JS Merger avec Prévisualisation & Code Source</title>
+    <style>
+        textarea, iframe {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        textarea {
+            height: 100px;
+        }
+        iframe {
+            height: 300px;
+            border: 1px solid #ccc;
+        }
+        #sourceCode {
+            height: 200px; /* Plus d'espace pour le code source */
+        }
+    </style>
+</head>
+<body>
+    <textarea id="htmlCode" placeholder="Coller le code HTML ici"></textarea>
+    <textarea id="cssCode" placeholder="Coller le code CSS ici"></textarea>
+    <textarea id="jsCode" placeholder="Coller le code JavaScript ici"></textarea>
+    <button onclick="mergeCode()">Merge et Prévisualiser</button>
+    <h3>Prévisualisation :</h3>
+    <iframe id="preview"></iframe>
+    <h3>Code Source :</h3>
+    <textarea id="sourceCode" readonly></textarea> <!-- Zone texte pour le code source -->
+
+    <script>
+        function mergeCode() {
+            const htmlCode = document.getElementById('htmlCode').value;
+            const cssCode = "<style>\n" + document.getElementById('cssCode').value + "\n</style>";
+            const jsCode = "<script>\n" + document.getElementById('jsCode').value + "\n<\/script>";
+            const totalCode = htmlCode + cssCode + jsCode;
+            
+            // Affiche dans l'iframe
+            const iframe = document.getElementById('preview');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(totalCode);
+            iframeDoc.close();
+            
+            // Affiche le code source dans une textarea
+            document.getElementById('sourceCode').value = totalCode;
+        }
+    </script>
+</body>
+</html>
